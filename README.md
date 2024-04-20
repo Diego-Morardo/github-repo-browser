@@ -21,7 +21,7 @@ This project is a React web application that allows users to view and navigate t
 1. Clone the repository:
 
    ```
-   git clone https://github.com/your-username/github-repo-browser.git
+   git clone https://github.com/Diego-Morardo/github-repo-browser.git
    ```
 
 2. Navigate to the project directory:
