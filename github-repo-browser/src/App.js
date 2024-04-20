@@ -8,18 +8,20 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <div className='header'>
+        <section className='header valign-wrapper'>
           <div className='home-btn'>
             <Link to={'/'} className='btn-floating btn-large waves-effect waves-light deep-purple darken-1'>
               <i className='material-icons'>home</i>
             </Link>
           </div>
           <h1 className="center-align">Github Repo Browser</h1>
-        </div>
-        <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/repo-detail/:repoOwner/:repoName/*' element={<RepoDetail/>}/>
-        </Routes>
+        </section>
+        <section className='main'>
+          <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/repo-detail/:repoOwner/:repoName/*' element={<RepoDetail/>}/>
+          </Routes>
+        </section>
       </div>
     </Router>
   );

@@ -1,5 +1,52 @@
+.repo-detail {
+    height: 100%;
+}
+
+.repo-detail h3 {
+    margin: 0;
+    height: 7rem;
+    display: flex;
+    align-items: center;
+    font-weight: lighter;
+}
+
+.repo-content {
+    border: 1px solid #ddd;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    height: calc(100% - 15.5rem);
+}
+
+.content-list {
+    height: 100%;
+    padding: 0;
+    
+}
+
+.content-list ul {
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+}
+
 .collection-icon {
     padding: .5rem;
     margin-right: 1rem;
     color: #eee;
+}
+
+.file-content {
+    position: relative;
+    height: 100%;
+    padding: .5rem 1rem !important;
+    overflow-y: scroll;
+}
+
+.file-content img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
 }

@@ -41,9 +41,9 @@ export const RepoDetail = () => {
     };
 
     return(
-        <div className="container">
+        <div className="repo-detail container">
             <h3>{repoName}</h3>
-            <div className="row">
+            <div className="row" style={{'margin':'0'}}>
                 <nav>
                     <div className="nav-wrapper deep-purple darken-1">
                         <div className="col s12">
@@ -54,10 +54,10 @@ export const RepoDetail = () => {
                     </div>
                 </nav>
             </div>
-            <div className="row">
-                <div className="col s3" style={{'padding':'0'}}>
+            <div className="repo-content row">
+                <div className="content-list col s3" style={{'padding':'0'}}>
                     <ul className="collection">
-                        {Array.isArray(repoContent) && repoContent.map((content, index) => (
+                        {Array.isArray(repoContent) ? repoContent.map((content, index) => (
                             <li key={index} className="collection-item valign-wrapper"> 
                                 {content.type === 'file' ? 
                                     <i className="material-icons circle deep-purple darken-1 collection-icon">description</i> : 
@@ -65,10 +65,15 @@ export const RepoDetail = () => {
                                 }
                                 <Link to={`${location.pathname}/${content.name}`} className="title">{content.name}</Link>
                             </li>
-                        ))}
+                        )) :
+                            <li className="collection-item valign-wrapper"> 
+                                <i className="material-icons circle deep-purple darken-1 collection-icon">description</i>
+                                <Link disabled className="title">{repoContent.name}</Link>
+                            </li>
+                        }
                     </ul>
                 </div>
-                <div className="col s9">
+                <div className="file-content col s9">
                     {!Array.isArray(repoContent) &&
                         <>
                             {file === null ? <Loader/> :

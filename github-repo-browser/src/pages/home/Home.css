@@ -13,7 +13,7 @@ form h5 {
 }
 
 .card {
-    background-color: #f6ecff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: .5rem;
+    background-color: #f6ecff !important;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1) !important;
+    border-radius: .5rem !important;
 }
