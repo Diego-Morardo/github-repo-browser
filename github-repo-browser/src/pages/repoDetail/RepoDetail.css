@@ -10,6 +10,12 @@
     font-weight: lighter;
 }
 
+nav {
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    overflow: hidden;
+}
+
 .repo-content {
     border: 1px solid #ddd;
     border-bottom-left-radius: .5rem;
@@ -19,8 +25,7 @@
 
 .content-list {
     height: 100%;
-    padding: 0;
-    
+    padding: 0 !important;
 }
 
 .content-list ul {

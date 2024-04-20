@@ -1,15 +1,29 @@
 form {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 2.5rem;
     border-radius: .5rem;
     padding: 1rem 3rem !important;
-    margin-top: 1rem;
+    margin-top: 2rem;
     background-color: #f6ecff;
 }
 
 form h5 {
-    color: #333;
+    color: #311b92;
+}
+
+form button {
+    border-radius: .5rem !important;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #311b92 !important;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #311b92 !important;
+    box-shadow: 0 1px 0 0 #311b92 !important;
 }
 
 .card {

@@ -8,6 +8,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        {/* Header */}
         <section className='header valign-wrapper'>
           <div className='home-btn'>
             <Link to={'/'} className='btn-floating btn-large waves-effect waves-light deep-purple darken-1'>
@@ -16,6 +17,7 @@ function App() {
           </div>
           <h1 className="center-align">Github Repo Browser</h1>
         </section>
+        {/* Main */}
         <section className='main'>
           <Routes>
             <Route path='/' element={<Home/>}/>

@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getRepo } from "../../services/api";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import M from "materialize-css";
 import './Home.css'
 
 export const Home = () => {
 
-    const [repo, setRepo] = useState(null)
+    useEffect(() => {
+        M.updateTextFields();
+    }, []);
+
+    const navigate = useNavigate();
+
+    const [fetchingError, setFetchingError] = useState(null)
 
     const [repoData, setRepoData] = useState({
         repoOwner: '',
@@ -24,16 +31,22 @@ export const Home = () => {
 
         try {
             const repo = await getRepo(repoData.repoOwner, repoData.repoName);
-            setRepo(repo);
+
+            if(repo.status !== 200) {
+                setFetchingError(repo.data);
+            } else {
+                navigate(`repo-detail/${repoData.repoOwner}/${repoData.repoName}`);
+            };
+            
         } catch(error) {
-            console.log(error);
+            console.error(error);
         };
     };
 
     return(
         <div className="container">
             <div className="row">
-                <form onSubmit={handleSubmit} className="col s6 offset-s3">
+                <form onSubmit={handleSubmit} className="col s10 offset-s1">
                     <h5>Enter Repository Owner and Name</h5>
                     <div className="row">
                         <div className="input-field col s6">
@@ -46,7 +59,7 @@ export const Home = () => {
                                 onChange={handleInputChange}
                                 required
                             />
-                            <label className="active" htmlFor="repoOwner">Owner</label>
+                            <label htmlFor="repoOwner">Owner</label>
                         </div>
                         <div className="input-field col s6">
                             <input 
@@ -58,7 +71,7 @@ export const Home = () => {
                                 onChange={handleInputChange}
                                 required
                             />
-                            <label className="active" htmlFor="repoName">Name</label>
+                            <label htmlFor="repoName">Name</label>
                         </div>
                     </div>
                     <div className="row">
@@ -68,14 +81,11 @@ export const Home = () => {
                     </div>
                 </form>
             </div>
-            {repo && 
+            {fetchingError && 
                 <div className="row">
-                    <div className="card col s6 offset-s3">
+                    <div className="card col s10 offset-s1">
                         <div className="card-content">
-                            <span className="card-title">{repo.name}</span>
-                        </div>
-                        <div className="card-action">
-                            <Link className="deep-purple-text" to={`repo-detail/${repoData.repoOwner}/${repoData.repoName}`}>Detail</Link>
+                            <span className="card-title center">{fetchingError.message}</span>
                         </div>
                     </div>
                 </div>

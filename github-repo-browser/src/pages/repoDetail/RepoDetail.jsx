@@ -4,6 +4,13 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import './RepoDetail.css';
 
+const sortContentByType = (content) => {
+    const directories = content.filter(item => item.type === 'dir');
+    const files = content.filter(item => item.type === 'file');
+
+    return [...directories, ...files];
+};
+
 export const RepoDetail = () => {
 
     const location = useLocation();
@@ -11,21 +18,25 @@ export const RepoDetail = () => {
     const { repoOwner, repoName, '*':path } = useParams();
 
     const [repoContent, setRepoContent] = useState(null);
+
     const [file, setFile] = useState(null);
 
     useEffect(() => {
         const fetchRepoContent = async () => {
             try {
                 const repoContent = await getRepoContent(repoOwner, repoName, path);
-                setRepoContent(repoContent);
 
-                if(!Array.isArray(repoContent)) {
+                if(Array.isArray(repoContent)) {
+                    const sortedRepoContent = sortContentByType(repoContent);
+                    setRepoContent(sortedRepoContent);
+                } else {
                     const file = await getFile(repoContent.download_url);
+                    setRepoContent(repoContent);
                     setFile(file);
                 };
 
             } catch(error) {
-                console.log(error);
+                console.error(error);
             };
         };
 
@@ -37,7 +48,13 @@ export const RepoDetail = () => {
     };
 
     if(repoContent.message) {
-        return <h1>Not Found</h1>
+        return(
+            <div className="card col s10 offset-s1">
+                <div className="card-content">
+                    <span className="card-title center">{repoContent.message}</span>
+                </div>
+            </div>
+        );
     };
 
     return(
@@ -47,6 +64,7 @@ export const RepoDetail = () => {
                 <nav>
                     <div className="nav-wrapper deep-purple darken-1">
                         <div className="col s12">
+                            <Link to={'.'} className="breadcrumb">/</Link>
                             {path.split('/').map((folder, index) => (
                                 <Link key={index} to={path.split('/').slice(0, index+1).join('/')} className="breadcrumb">{folder}</Link>
                             ))}
@@ -55,7 +73,7 @@ export const RepoDetail = () => {
                 </nav>
             </div>
             <div className="repo-content row">
-                <div className="content-list col s3" style={{'padding':'0'}}>
+                <div className="content-list col s3">
                     <ul className="collection">
                         {Array.isArray(repoContent) ? repoContent.map((content, index) => (
                             <li key={index} className="collection-item valign-wrapper"> 
