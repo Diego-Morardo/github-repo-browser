@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { getRepo } from "../../services/api";
 import { Link } from "react-router-dom";
+import './Home.css'
 
 export const Home = () => {
 
     const [repo, setRepo] = useState(null)
-    console.log(repo)
+
     const [repoData, setRepoData] = useState({
         repoOwner: '',
         repoName: ''
@@ -33,7 +34,7 @@ export const Home = () => {
         <div className="container">
             <div className="row">
                 <form onSubmit={handleSubmit} className="col s6 offset-s3">
-                    <h5>Enter repo name and owner</h5>
+                    <h5>Enter Repository Owner and Name</h5>
                     <div className="row">
                         <div className="input-field col s6">
                             <input 

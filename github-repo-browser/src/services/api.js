@@ -1,19 +1,9 @@
-// const API_BASE_URL = 'https://developer.github.com/v3';
 const API_BASE_URL = 'https://api.github.com';
 
 export const getRepo = async (owner, name) => {
     try {
         const response = await fetch(`${API_BASE_URL}/repos/${owner}/${name}`);
         const repo = await response.json();
-        
-        // const repoContents = await getRepoContent(repo.full_name);
-
-        // const completeRepo = {
-        //     name: name,
-        //     owner: owner,
-        //     content: repoContents
-        // };
-        
         return repo;
     } catch(error) {
         console.error('Error fetching repo: ', error);
@@ -29,5 +19,31 @@ export const getRepoContent = async (owner, name, path) => {
     } catch(error) {
         console.error('Error fetching repo contents: ', error);
         throw error;
+    };
+};
+
+export const getFile = async (url) => {
+    try {
+        const response = await fetch(url);
+        const responseCopy = response.clone();
+        const data = await response.blob();
+
+        const file = {
+            type: null,
+            data: null
+        };
+
+        if(data.type.includes('image')) {
+            file.type = 'image';
+            file.data = url;
+        } else {
+            const text = await responseCopy.text();
+            file.type = 'text';
+            file.data = text;
+        };
+
+        return file;
+    } catch(error) {
+        console.error('Error fetching file: ', error);
     };
 };

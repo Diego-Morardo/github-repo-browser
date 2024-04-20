@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getRepoContent } from "../../services/api";
+import { getRepoContent, getFile } from "../../services/api";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import './RepoDetail.css';
@@ -9,14 +9,21 @@ export const RepoDetail = () => {
     const location = useLocation();
 
     const { repoOwner, repoName, '*':path } = useParams();
-    console.log(path)
+
     const [repoContent, setRepoContent] = useState(null);
-    console.log(repoContent)
+    const [file, setFile] = useState(null);
+
     useEffect(() => {
         const fetchRepoContent = async () => {
             try {
                 const repoContent = await getRepoContent(repoOwner, repoName, path);
                 setRepoContent(repoContent);
+
+                if(!Array.isArray(repoContent)) {
+                    const file = await getFile(repoContent.download_url);
+                    setFile(file);
+                };
+
             } catch(error) {
                 console.log(error);
             };
@@ -41,7 +48,7 @@ export const RepoDetail = () => {
                     <div className="nav-wrapper deep-purple darken-1">
                         <div className="col s12">
                             {path.split('/').map((folder, index) => (
-                                <Link key={index} to={folder} className="breadcrumb">{folder}</Link>
+                                <Link key={index} to={path.split('/').slice(0, index+1).join('/')} className="breadcrumb">{folder}</Link>
                             ))}
                         </div>
                     </div>
@@ -50,7 +57,7 @@ export const RepoDetail = () => {
             <div className="row">
                 <div className="col s3" style={{'padding':'0'}}>
                     <ul className="collection">
-                        {repoContent.map((content, index) => (
+                        {Array.isArray(repoContent) && repoContent.map((content, index) => (
                             <li key={index} className="collection-item valign-wrapper"> 
                                 {content.type === 'file' ? 
                                     <i className="material-icons circle deep-purple darken-1 collection-icon">description</i> : 
@@ -62,7 +69,14 @@ export const RepoDetail = () => {
                     </ul>
                 </div>
                 <div className="col s9">
-                    content
+                    {!Array.isArray(repoContent) &&
+                        <>
+                            {file === null ? <Loader/> :
+                            file.type === 'image' ? <img src={file.data} alt={repoContent.name} /> :
+                            <p className="flow-text">{file.data}</p>
+                            }
+                        </>
+                    }
                 </div>
             </div>
         </div>
