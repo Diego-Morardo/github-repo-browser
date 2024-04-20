@@ -46,7 +46,7 @@ export const Home = () => {
     return(
         <div className="container">
             <div className="row">
-                <form onSubmit={handleSubmit} className="col s10 offset-s1">
+                <form onSubmit={handleSubmit} className="col s12 m10 offset-m1">
                     <h5>Enter Repository Owner and Name</h5>
                     <div className="row">
                         <div className="input-field col s6">
@@ -83,7 +83,7 @@ export const Home = () => {
             </div>
             {fetchingError && 
                 <div className="row">
-                    <div className="card col s10 offset-s1">
+                    <div className="card col s12 m10 offset-m1">
                         <div className="card-content">
                             <span className="card-title center">{fetchingError.message}</span>
                         </div>

@@ -34,6 +34,15 @@ nav {
     overflow-y: scroll;
 }
 
+.collection-item a {
+    color: #333;
+}
+
+.collection-item a:hover {
+    color: #311b92;
+    font-weight: bolder;
+}
+
 .collection-icon {
     padding: .5rem;
     margin-right: 1rem;
