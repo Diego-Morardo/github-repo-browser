@@ -27,7 +27,7 @@ This project is a React web application that allows users to view and navigate t
 2. Navigate to the project directory:
 
    ```
-   cd github-repo-browser
+   cd github-repo-browser/github-repo-browser
    ```
 
 3. Install dependencies:
