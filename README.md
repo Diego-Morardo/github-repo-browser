@@ -9,6 +9,10 @@ This project is a React web application that allows users to view and navigate t
 - View images stored in the repository.
 - Simple and intuitive user interface.
 
+## Live Demo
+
+Check out the live demo of the project here: `https://github-repo-browser-tau.vercel.app/`
+
 ## Technologies Used
 
 - **React.js**
