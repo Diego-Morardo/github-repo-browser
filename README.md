@@ -11,7 +11,7 @@ This project is a React web application that allows users to view and navigate t
 
 ## Live Demo
 
-Check out the live demo of the project here: (https://github-repo-browser-tau.vercel.app/"Github Repo Browser Live Demo")
+Check out the live demo of the project here: [Github Repo Browser Live Demo](https://github-repo-browser-tau.vercel.app/)
 
 ## Technologies Used
 
